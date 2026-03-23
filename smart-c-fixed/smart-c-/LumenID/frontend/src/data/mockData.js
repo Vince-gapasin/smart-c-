@@ -1,0 +1,165 @@
+export const mockInstitutionDID = {
+  id: 'did:web:excellence.edu.ph',
+  name: 'University of Excellence',
+  type: 'institution',
+  website: 'https://excellence.edu.ph',
+  location: 'Manila, Philippines',
+  publicKey: '0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb4',
+  registrationNumber: 'CHED-2024-0156',
+  blockchain: 'Polkadot',
+  verified: true,
+};
+
+export const mockStudentDID = {
+  id: 'did:lumen:student-xyz789',
+  name: 'Jake Lamac',
+  type: 'student',
+  publicKey: '0x8626f6940E2eb28930eFb4CeF49B2d1F2C9C1199',
+  blockchain: 'Polkadot',
+  verified: true,
+};
+
+export const mockCredentials = [
+  {
+    id: 'cred-001',
+    type: 'UniversityDegreeCredential',
+    issuer: 'University of Excellence',
+    issuerDID: 'did:web:excellence.edu.ph',
+    recipient: 'Jake Lamac',
+    recipientDID: 'did:lumen:student-xyz789',
+    issuedDate: '2026-02-17',
+    status: 'active',
+    claims: {
+      fullName: 'Jake Lamac',
+      program: 'B.S. Computer Science',
+      major: 'Computer Science',
+      gpa: 3.85,
+      honors: 'Cum Laude',
+      skills: ['Python', 'Solidity', 'React', 'Blockchain'],
+      graduationDate: '2026-05-15',
+    },
+    schema: 'UniversityDegreeCredential (JSON-LD)',
+    hash: '0x7a2b8f3c9d1e6a4b5c7d8e9f0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b',
+    signatures: {
+      registrar: true,
+      dean: true,
+    },
+    certifications: [
+      {
+        id: '1',
+        title: 'Academic Excellence Award',
+        organization: 'University of Excellence',
+        issueDate: '2026-05-15',
+        uniqueId: 'CERT-2026-XY7K9P2L',
+        nftAddress: '0x8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b',
+        nftTokenId: '785432',
+        type: 'certification',
+      },
+    ],
+  },
+  {
+    id: 'cred-002',
+    type: 'MicroCredential',
+    issuer: 'University of Excellence',
+    issuerDID: 'did:web:excellence.edu.ph',
+    recipient: 'Jake Lamac',
+    recipientDID: 'did:lumen:student-xyz789',
+    issuedDate: '2025-11-20',
+    status: 'active',
+    claims: {
+      fullName: 'Jake Lamac',
+      program: 'Cybersecurity Cadet',
+      skills: ['Security', 'Penetration Testing'],
+    },
+    schema: 'MicroCredential (JSON-LD)',
+    certifications: [
+      {
+        id: '2',
+        title: 'Security Champion',
+        organization: 'University of Excellence - CS Department',
+        issueDate: '2025-11-20',
+        uniqueId: 'BADGE-2025-MN3K7Q9P',
+        nftAddress: '0x1f2e3d4c5b6a7988776655443322110fedcba987',
+        nftTokenId: '234567',
+        type: 'badge',
+      },
+    ],
+  },
+  {
+    id: 'cred-003',
+    type: 'MicroCredential',
+    issuer: 'University of Excellence',
+    issuerDID: 'did:web:excellence.edu.ph',
+    recipient: 'Jake Lamac',
+    recipientDID: 'did:lumen:student-xyz789',
+    issuedDate: '2025-12-10',
+    status: 'active',
+    claims: {
+      fullName: 'Jake Lamac',
+      program: 'Backend Dev (Level 2)',
+      skills: ['Node.js', 'PostgreSQL', 'API Design'],
+    },
+    schema: 'MicroCredential (JSON-LD)',
+    certifications: [
+      {
+        id: '3',
+        title: 'Full Stack Developer',
+        organization: 'Tech Excellence Institute',
+        issueDate: '2025-12-10',
+        expirationDate: '2027-12-10',
+        uniqueId: 'BADGE-2025-PQ8L2M4N',
+        nftAddress: '0x9b8a7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a0b',
+        nftTokenId: '567890',
+        type: 'badge',
+      },
+    ],
+  },
+];
+
+export const mockPendingCredentials = [
+  {
+    id: 'cred-pending-001',
+    type: 'UniversityDegreeCredential',
+    issuer: 'University of Excellence',
+    issuerDID: 'did:web:excellence.edu.ph',
+    recipient: 'Maria Santos',
+    recipientDID: 'did:lumen:student-abc456',
+    issuedDate: '2026-02-18',
+    status: 'pending',
+    claims: {
+      fullName: 'Maria Santos',
+      program: 'B.S. Information Technology',
+      major: 'Information Technology',
+      gpa: 3.92,
+      honors: 'Magna Cum Laude',
+      graduationDate: '2026-05-15',
+    },
+    schema: 'UniversityDegreeCredential (JSON-LD)',
+    hash: '0x9c8b7a6f5e4d3c2b1a0f9e8d7c6b5a4f3e2d1c0b9a8f7e6d5c4b3a2f1e0d9c8b',
+    signatures: {
+      registrar: true,
+      dean: false,
+    },
+  },
+];
+
+export const mockIssuanceHistory = [
+  ...mockCredentials,
+  {
+    id: 'cred-004',
+    type: 'UniversityDegreeCredential',
+    issuer: 'University of Excellence',
+    issuerDID: 'did:web:excellence.edu.ph',
+    recipient: 'John Doe',
+    recipientDID: 'did:lumen:student-def123',
+    issuedDate: '2026-01-15',
+    status: 'revoked',
+    claims: {
+      fullName: 'John Doe',
+      program: 'B.S. Computer Science',
+      gpa: 3.5,
+      graduationDate: '2026-05-15',
+    },
+    schema: 'UniversityDegreeCredential (JSON-LD)',
+  },
+];

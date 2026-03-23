@@ -1,0 +1,102 @@
+/**
+ * LumenID Responsive Utilities
+ * =============================
+ * Additional responsive utilities following 4px grid system
+ */
+
+/* Mobile-first responsive text sizing */
+@layer utilities {
+  /* Responsive spacing utilities */
+  .container-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-padding {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  .card-padding {
+    @apply p-6 sm:p-8 lg:p-10;
+  }
+
+  /* Responsive grid layouts */
+  .grid-responsive-2 {
+    @apply grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8;
+  }
+
+  .grid-responsive-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8;
+  }
+
+  .grid-responsive-4 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6;
+  }
+
+  /* Responsive flex layouts */
+  .flex-stack-mobile {
+    @apply flex flex-col md:flex-row gap-4 md:gap-6;
+  }
+
+  /* Responsive visibility */
+  .hide-mobile {
+    @apply hidden md:block;
+  }
+
+  .show-mobile {
+    @apply block md:hidden;
+  }
+
+  /* Full-height sections with safe mobile handling */
+  .section-fullheight {
+    @apply min-h-[calc(100vh-4rem)] md:min-h-screen;
+  }
+
+  /* Responsive text truncation */
+  .text-truncate-mobile {
+    @apply truncate sm:whitespace-normal;
+  }
+}
+
+/* Enhanced mobile menu transitions */
+@media (max-width: 768px) {
+  .mobile-menu {
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  .mobile-menu.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .mobile-menu.closed {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+/* Tablet optimization */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Optimize card layouts for tablet */
+  .card-grid-tablet {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Prevent layout shift on mobile keyboards */
+@media (max-width: 768px) {
+  .form-container {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* Safe area insets for notched devices */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}

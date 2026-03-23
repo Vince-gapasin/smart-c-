@@ -1,0 +1,505 @@
+/**
+ * PRECISION ALIGNMENT & LAYOUT GEOMETRY SYSTEM
+ * 
+ * This file defines the strict grid system, alignment utilities,
+ * and geometric constraints for the entire application.
+ * 
+ * SPACING PHILOSOPHY:
+ * - Base unit: 4px (--base-unit)
+ * - All spacing must be a multiple of 4px
+ * - Use semantic spacing scale for consistency
+ * - Contextual spacing: larger gaps between sections, smaller within
+ * - Never let components touch without intentional grouping
+ */
+
+:root {
+  /* ============================================
+     GRID SYSTEM - 4px Base Unit
+     ============================================ */
+  --base-unit: 4px;
+  --grid-1: calc(var(--base-unit) * 1);   /* 4px - Micro spacing */
+  --grid-2: calc(var(--base-unit) * 2);   /* 8px - Tight */
+  --grid-3: calc(var(--base-unit) * 3);   /* 12px - Compact */
+  --grid-4: calc(var(--base-unit) * 4);   /* 16px - Cozy */
+  --grid-5: calc(var(--base-unit) * 5);   /* 20px - Comfortable */
+  --grid-6: calc(var(--base-unit) * 6);   /* 24px - Spacious */
+  --grid-8: calc(var(--base-unit) * 8);   /* 32px - Generous */
+  --grid-10: calc(var(--base-unit) * 10); /* 40px - Airy */
+  --grid-12: calc(var(--base-unit) * 12); /* 48px - Expansive */
+  --grid-16: calc(var(--base-unit) * 16); /* 64px - Section break */
+  --grid-20: calc(var(--base-unit) * 20); /* 80px - Major section */
+  --grid-24: calc(var(--base-unit) * 24); /* 96px - Hero spacing */
+
+  /* ============================================
+     CONTEXTUAL SPACING - Semantic Names
+     ============================================ */
+  
+  /* Component internal spacing */
+  --space-component-micro: var(--grid-1);     /* 4px - Icon margins, tight badges */
+  --space-component-tight: var(--grid-2);     /* 8px - Input padding, button gaps */
+  --space-component-compact: var(--grid-3);   /* 12px - Card header padding */
+  --space-component-normal: var(--grid-4);    /* 16px - Default component padding */
+  --space-component-comfortable: var(--grid-6); /* 24px - Card padding */
+  
+  /* Grouping spacing (between related items) */
+  --space-group-tight: var(--grid-2);         /* 8px - Stacked form fields */
+  --space-group-normal: var(--grid-4);        /* 16px - Related items in a list */
+  --space-group-comfortable: var(--grid-6);   /* 24px - Card grid items */
+  
+  /* Section spacing (between distinct sections) */
+  --space-section-small: var(--grid-6);       /* 24px - Sub-sections */
+  --space-section-medium: var(--grid-8);      /* 32px - Standard section break */
+  --space-section-large: var(--grid-12);      /* 48px - Major section divide */
+  --space-section-xlarge: var(--grid-16);     /* 64px - Page sections */
+  
+  /* Layout spacing (page-level) */
+  --space-layout-small: var(--grid-8);        /* 32px - Content to edge */
+  --space-layout-medium: var(--grid-12);      /* 48px - Section to section */
+  --space-layout-large: var(--grid-16);       /* 64px - Hero sections */
+  --space-layout-xlarge: var(--grid-20);      /* 80px - Landing sections */
+
+  /* ============================================
+     CONTAINER WIDTHS - Based on 12-Column Grid
+     ============================================ */
+  --container-xs: 320px;  /* Mobile portrait */
+  --container-sm: 640px;  /* Mobile landscape */
+  --container-md: 768px;  /* Tablet portrait */
+  --container-lg: 1024px; /* Tablet landscape / Small desktop */
+  --container-xl: 1280px; /* Desktop */
+  --container-2xl: 1536px; /* Large desktop */
+
+  /* Content max-widths for optimal readability */
+  --content-narrow: 640px;  /* Single column, forms */
+  --content-medium: 768px;  /* Article content */
+  --content-wide: 1024px;   /* Dashboard content */
+  --content-full: 1280px;   /* Full-width sections */
+
+  /* ============================================
+     VERTICAL RHYTHM - 8px Baseline Grid
+     ============================================ */
+  --baseline: 8px;
+  --baseline-2: calc(var(--baseline) * 2);  /* 16px */
+  --baseline-3: calc(var(--baseline) * 3);  /* 24px */
+  --baseline-4: calc(var(--baseline) * 4);  /* 32px */
+  --baseline-5: calc(var(--baseline) * 5);  /* 40px */
+  --baseline-6: calc(var(--baseline) * 6);  /* 48px */
+  --baseline-8: calc(var(--baseline) * 8);  /* 64px */
+  --baseline-10: calc(var(--baseline) * 10); /* 80px */
+
+  /* ============================================
+     COMPONENT HEIGHTS - Strict Multiples of 4px
+     ============================================ */
+  --height-input: 44px;     /* 11 * 4px - Touch-friendly */
+  --height-button-sm: 36px; /* 9 * 4px */
+  --height-button-md: 40px; /* 10 * 4px - Default */
+  --height-button-lg: 48px; /* 12 * 4px */
+  --height-nav: 64px;       /* 16 * 4px */
+  --height-header: 80px;    /* 20 * 4px */
+
+  /* Icon sizes - Aligned to grid */
+  --icon-xs: 12px;  /* 3 * 4px */
+  --icon-sm: 16px;  /* 4 * 4px */
+  --icon-md: 20px;  /* 5 * 4px */
+  --icon-lg: 24px;  /* 6 * 4px */
+  --icon-xl: 32px;  /* 8 * 4px */
+  --icon-2xl: 40px; /* 10 * 4px */
+
+  /* ============================================
+     OPTICAL ADJUSTMENTS
+     ============================================ */
+  
+  /* Icon optical centering - compensates for visual weight */
+  --icon-optical-offset-y: -1px; /* Slight upward adjustment for circles/heavy shapes */
+  --icon-optical-offset-x: 0px;
+  
+  /* Text optical alignment with icons */
+  --text-icon-gap: 8px;          /* Standard gap between icon and text */
+  --text-icon-baseline-offset: 2px; /* Vertical offset for baseline alignment */
+  
+  /* Button content optical centering */
+  --button-content-offset: -1px;  /* Compensate for font rendering */
+  
+  /* Card header icon alignment */
+  --card-icon-offset: -2px;       /* Align with first line of text */
+}
+
+@layer utilities {
+  /* ============================================
+     GRID ALIGNMENT UTILITIES
+     ============================================ */
+  
+  /* Snap to 4px grid */
+  .snap-to-grid {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .snap-to-grid > * {
+    margin-bottom: var(--grid-4);
+  }
+  
+  .snap-to-grid > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ============================================
+     PRECISE CENTERING UTILITIES
+     ============================================ */
+  
+  /* Perfect vertical & horizontal centering */
+  .center-absolute {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .center-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .center-grid {
+    display: grid;
+    place-items: center;
+  }
+  
+  /* Flex alignment shortcuts */
+  .flex-center-y {
+    display: flex;
+    align-items: center;
+  }
+  
+  .flex-center-x {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .flex-start {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  .flex-end {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  /* ============================================
+     BASELINE GRID UTILITIES
+     ============================================ */
+  
+  /* Enforce 8px vertical rhythm */
+  .baseline-grid > * {
+    margin-bottom: var(--baseline);
+  }
+  
+  .baseline-grid > *:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Baseline alignment for inline elements */
+  .baseline-align {
+    vertical-align: baseline;
+  }
+  
+  .baseline-icon {
+    vertical-align: middle;
+    margin-top: var(--icon-optical-offset-y);
+  }
+
+  /* ============================================
+     OPTICAL ALIGNMENT UTILITIES
+     ============================================ */
+  
+  /* Icon-text pairing with optical centering */
+  .icon-text-pair {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--text-icon-gap);
+  }
+  
+  .icon-text-pair > svg,
+  .icon-text-pair > .icon {
+    flex-shrink: 0;
+    margin-top: var(--icon-optical-offset-y);
+  }
+  
+  /* Button content optical centering */
+  .button-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--text-icon-gap);
+    position: relative;
+    top: var(--button-content-offset);
+  }
+  
+  /* Card header with icon alignment */
+  .card-header-icon {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--grid-3);
+  }
+  
+  .card-header-icon > svg,
+  .card-header-icon > .icon {
+    flex-shrink: 0;
+    margin-top: var(--card-icon-offset);
+  }
+
+  /* ============================================
+     CONTAINER CONSTRAINTS
+     ============================================ */
+  
+  .container-narrow {
+    max-width: var(--content-narrow);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .container-medium {
+    max-width: var(--content-medium);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .container-wide {
+    max-width: var(--content-wide);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .container-full {
+    max-width: var(--content-full);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ============================================
+     GRID LAYOUT SYSTEMS
+     ============================================ */
+  
+  /* 12-column grid for complex layouts */
+  .grid-12 {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--grid-6);
+  }
+  
+  /* Responsive 2-column grid */
+  .grid-2-responsive {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-6);
+  }
+  
+  @media (min-width: 768px) {
+    .grid-2-responsive {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  /* Responsive 3-column grid */
+  .grid-3-responsive {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-6);
+  }
+  
+  @media (min-width: 640px) {
+    .grid-3-responsive {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .grid-3-responsive {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  /* Responsive 4-column grid */
+  .grid-4-responsive {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--grid-4);
+  }
+  
+  @media (min-width: 640px) {
+    .grid-4-responsive {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (min-width: 1024px) {
+    .grid-4-responsive {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ============================================
+     SPACING SCALE - Strict Grid Adherence
+     ============================================ */
+  
+  /* Margin utilities */
+  .m-grid-2 { margin: var(--grid-2); }
+  .m-grid-3 { margin: var(--grid-3); }
+  .m-grid-4 { margin: var(--grid-4); }
+  .m-grid-6 { margin: var(--grid-6); }
+  .m-grid-8 { margin: var(--grid-8); }
+  
+  .mt-grid-2 { margin-top: var(--grid-2); }
+  .mt-grid-3 { margin-top: var(--grid-3); }
+  .mt-grid-4 { margin-top: var(--grid-4); }
+  .mt-grid-6 { margin-top: var(--grid-6); }
+  .mt-grid-8 { margin-top: var(--grid-8); }
+  
+  .mb-grid-2 { margin-bottom: var(--grid-2); }
+  .mb-grid-3 { margin-bottom: var(--grid-3); }
+  .mb-grid-4 { margin-bottom: var(--grid-4); }
+  .mb-grid-6 { margin-bottom: var(--grid-6); }
+  .mb-grid-8 { margin-bottom: var(--grid-8); }
+  
+  /* Padding utilities */
+  .p-grid-2 { padding: var(--grid-2); }
+  .p-grid-3 { padding: var(--grid-3); }
+  .p-grid-4 { padding: var(--grid-4); }
+  .p-grid-6 { padding: var(--grid-6); }
+  .p-grid-8 { padding: var(--grid-8); }
+  
+  /* Gap utilities for flexbox/grid */
+  .gap-grid-2 { gap: var(--grid-2); }
+  .gap-grid-3 { gap: var(--grid-3); }
+  .gap-grid-4 { gap: var(--grid-4); }
+  .gap-grid-6 { gap: var(--grid-6); }
+  .gap-grid-8 { gap: var(--grid-8); }
+
+  /* ============================================
+     COMPONENT-SPECIFIC ALIGNMENT
+     ============================================ */
+  
+  /* Input with icon - perfect alignment */
+  .input-with-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-with-icon > input {
+    padding-left: var(--grid-10);
+    height: var(--height-input);
+  }
+  
+  .input-with-icon > .icon {
+    position: absolute;
+    left: var(--grid-3);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--muted-foreground);
+  }
+  
+  /* Badge alignment */
+  .badge-aligned {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--grid-6);
+    padding: 0 var(--grid-3);
+    gap: var(--grid-2);
+  }
+  
+  /* Card with perfect padding */
+  .card-aligned {
+    padding: var(--grid-6);
+  }
+  
+  .card-header-aligned {
+    padding: var(--grid-6);
+    padding-bottom: var(--grid-4);
+  }
+  
+  .card-content-aligned {
+    padding: var(--grid-6);
+    padding-top: 0;
+  }
+
+  /* ============================================
+     PAGE-LEVEL LAYOUT CONTAINERS
+     Matches the navigation bar's max-w-7xl + responsive gutters
+     so every route's content left-edge aligns to the same X.
+     ============================================ */
+
+  /**
+   * .page-shell — outer scroll region
+   *   Provides vertical breathing room; contains no horizontal edges.
+   */
+  .page-shell {
+    min-height: 100vh;
+    padding-top: var(--grid-8);       /* 32px */
+    padding-bottom: var(--grid-16);   /* 64px */
+  }
+
+  /**
+   * .page-container — width-constrained, horizontally-padded inner wrapper
+   *   Max-width and responsive gutters match BaseNavigation exactly:
+   *   px-4  →  sm:px-6  →  lg:px-8
+   */
+  .page-container {
+    max-width: 80rem; /* 1280px = Tailwind max-w-7xl */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;   /* 16px = px-4 */
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .page-container {
+      padding-left: 1.5rem;  /* 24px = sm:px-6 */
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-container {
+      padding-left: 2rem;   /* 32px = lg:px-8 */
+      padding-right: 2rem;
+    }
+  }
+
+  /**
+   * .page-container-narrow — for prose/legal/auth content (max-w-4xl)
+   *   Same horizontal gutters; narrower content column.
+   */
+  .page-container-narrow {
+    max-width: 56rem; /* 896px = Tailwind max-w-4xl */
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .page-container-narrow {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .page-container-narrow {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+  }
+}

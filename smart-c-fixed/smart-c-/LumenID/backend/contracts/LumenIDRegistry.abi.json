@@ -1,0 +1,96 @@
+[
+  {
+    "type": "event",
+    "name": "CredentialIssued",
+    "inputs": [
+      { "name": "credentialId", "type": "string",  "indexed": true  },
+      { "name": "recipientDID", "type": "string",  "indexed": false },
+      { "name": "claimsHash",   "type": "bytes32", "indexed": false },
+      { "name": "metadataURI",  "type": "string",  "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "CredentialRevoked",
+    "inputs": [
+      { "name": "credentialId", "type": "string", "indexed": true  },
+      { "name": "reason",       "type": "string", "indexed": false }
+    ]
+  },
+  {
+    "type": "event",
+    "name": "DIDRegistered",
+    "inputs": [
+      { "name": "did",    "type": "string", "indexed": true  },
+      { "name": "docURI", "type": "string", "indexed": false }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "issueCredential",
+    "stateMutability": "nonpayable",
+    "inputs": [
+      { "name": "credentialId", "type": "string"  },
+      { "name": "recipientDID", "type": "string"  },
+      { "name": "claimsHash",   "type": "bytes32" },
+      { "name": "metadataURI",  "type": "string"  }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "revokeCredential",
+    "stateMutability": "nonpayable",
+    "inputs": [
+      { "name": "credentialId", "type": "string" },
+      { "name": "reason",       "type": "string" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "getCredential",
+    "stateMutability": "view",
+    "inputs": [
+      { "name": "credentialId", "type": "string" }
+    ],
+    "outputs": [
+      { "name": "claimsHash",   "type": "bytes32" },
+      { "name": "metadataURI",  "type": "string"  },
+      { "name": "recipientDID", "type": "string"  },
+      { "name": "isRevoked",    "type": "bool"    }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "isRevoked",
+    "stateMutability": "view",
+    "inputs": [
+      { "name": "credentialId", "type": "string" }
+    ],
+    "outputs": [
+      { "name": "", "type": "bool" }
+    ]
+  },
+  {
+    "type": "function",
+    "name": "registerDID",
+    "stateMutability": "nonpayable",
+    "inputs": [
+      { "name": "did",    "type": "string" },
+      { "name": "docURI", "type": "string" }
+    ],
+    "outputs": []
+  },
+  {
+    "type": "function",
+    "name": "resolveDID",
+    "stateMutability": "view",
+    "inputs": [
+      { "name": "did", "type": "string" }
+    ],
+    "outputs": [
+      { "name": "docURI", "type": "string" }
+    ]
+  }
+]
